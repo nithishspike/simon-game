@@ -1,18 +1,22 @@
 
 var l = ["red", "green", "blue", "yellow"];
     // Generate a random color
-var  r=[];
-j=0;
+    var  r=[];
+    j=0;
 function get_ready(){
+  r=[];
+  j=0;
   getready(1);
+  
 }
-$(document).keypress(async function(e)
+$(document).keydown(async function(e)
   { 
     if(e.key=="Enter")
     {
       $("h1").text("Round 1");
-     getready(1);
+      getready(1);
     }
+    
   });
 async function getready(n)
 {
@@ -27,10 +31,10 @@ async function getready(n)
         r.push(rand);
         await sleep(1);
         $("." + rand).removeClass("pressed");  
-        await sleep(0.2);
+        await sleep(0.1);
       }
 }
-  console.log(r);
+  //console.log(r);
   async function sleep(sec)
   {
       return new Promise(function(resolve) { setTimeout(resolve,sec*1000)});
@@ -46,7 +50,11 @@ async function getready(n)
     await sleep(0.2);
     $("."+v).removeClass("pressed");
     if (v!=r[j]){
-    alert("game over");
+    //alert("game over");
+    $("h1").text("Game over");
+    $("h1").css("font-size","8rem");
+    d.src="sounds/game-over.mp3";
+    d.play();
     d=0;
     }
     else{
@@ -65,7 +73,10 @@ async function getready(n)
     console.log(this.classList[1]);
 
  });
-$(".reset").click(get_ready);
+$(".reset").click(()=>{get_ready();
+  $("h1").text("Round 1");
+  $("h1").css("font-size","3rem");
+});
  //$(".btn").click(function(){$("h1").fadeToggle();
 //});
 $(document).ready(() => {
